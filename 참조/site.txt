@@ -1,0 +1,4 @@
+//ubuntu 20.04 mariadb 설치
+https://kibua20.tistory.com/185
+//nodejs 설치
+https://blog.dalso.org/article/ubuntu-node-js-install

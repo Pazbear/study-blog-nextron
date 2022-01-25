@@ -11,7 +11,7 @@ const path = require("path");
 const helmet = require('helmet');
 const { expressCspHeader, INLINE, NONE, SELF, EVAL } = require('express-csp-header');
 
-
+console.log(process.env.NODE_ENV)
 
 const app = express();
 

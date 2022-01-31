@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 
 const User = require('./User')
+const Work = require('./Work')
+const Buddy = require('./Buddy')
 
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];
@@ -13,8 +15,16 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.User = User;
+db.Work = Work;
+db.Buddy = Buddy;
 
 User.init(sequelize);
+Work.init(sequelize);
+Buddy.init(sequelize);
+
+User.associate(db);
+Work.associate(db);
+Buddy.associate(db);
 
 
 module.exports = db;

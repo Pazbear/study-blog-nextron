@@ -30,7 +30,7 @@ const BlogEditor: React.FC<Props> = (props) => {
     const instance = editorRef.current.getInstance();
     const valueType = props.valueType || "markdown";
 
-    props.onChange(valueType === "markdown" ? instance.getMarkdown() : instance.getHtml());
+    props.onChange(valueType === "markdown" ? instance.getMarkdown() : instance.getHTML());
   }, [props, editorRef]);
 
   return <div>

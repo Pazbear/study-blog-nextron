@@ -1,7 +1,9 @@
 import dynamic from 'next/dynamic';
-import * as React from 'react';
+import React from 'react';
 import { Editor as EditorType, EditorProps } from '@toast-ui/react-editor';
 import { TuiEditorWithForwardedProps } from './TuiEditorWrapper';
+import axios from 'axios';
+import {uploadImage} from '../api/workApi'
 
 interface EditorPropsWithHandlers extends EditorProps {
   onChange?(value: string): void;
@@ -19,9 +21,30 @@ interface Props extends EditorProps {
 }
 
 const BlogEditor: React.FC<Props> = (props) => {
-  const { initialValue, previewStyle, height, initialEditType, useCommandShortcut } = props;
+  const { initialValue, previewStyle, height, useCommandShortcut } = props;
 
   const editorRef = React.useRef<EditorType>();
+
+  React.useEffect(()=>{
+    if(editorRef.current){
+      console.log("editorRef.current")
+      editorRef.current.getInstance().removeHook('addImageBlobHook');
+      editorRef.current.getInstance().addHook('addImageBlobHook', (blob, callback)=>{
+        (async ()=>{
+          let formData = new FormData();
+          formData.append("file", blob);
+          console.log("upload image");
+          const imagePath = await uploadImage(formData);
+          console.log(imagePath)
+          callback("/"+imagePath, "alt text");
+        })();
+
+        return false;
+      })
+    }
+    return () => {};
+  },[])
+
   const handleChange = React.useCallback(() => {
     if (!editorRef.current) {
       return;
@@ -30,7 +53,7 @@ const BlogEditor: React.FC<Props> = (props) => {
     const instance = editorRef.current.getInstance();
     const valueType = props.valueType || "markdown";
 
-    props.onChange(valueType === "markdown" ? instance.getMarkdown() : instance.getHtml());
+    props.onChange(valueType === "markdown" ? instance.getMarkdown() : instance.getHTML());
   }, [props, editorRef]);
 
   return <div>
@@ -39,7 +62,7 @@ const BlogEditor: React.FC<Props> = (props) => {
       initialValue={initialValue || "hello react editor world!"}
       previewStyle={previewStyle || "vertical"}
       height={height || "600px"}
-      initialEditType={initialEditType || "markdown"}
+      initialEditType={"wysiwyg"}
       useCommandShortcut={useCommandShortcut || true}
       ref={editorRef}
       onChange={handleChange}

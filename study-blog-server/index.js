@@ -31,9 +31,12 @@ app.use(expressCspHeader({
     }
 }));
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(cors({
+    origin: 'http://localhost:8888',  //Your Client, do not write '*'
+    credentials: true
+}));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECTET, { sameSite: "none", secure: true }));
 app.use(morgan("dev"))
 
@@ -44,7 +47,7 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header(
         'Access-Control-Allow-Headers',
-        'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
+        'Origin, X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
     );
     next();
 });
@@ -58,6 +61,7 @@ app.use(session({
     cookie: {
         expires: Date.now() + parseInt(process.env.COOKIE_EXPIRATION_MS, 10),
         maxAge: parseInt(process.env.COOKIE_EXPIRATION_MS, 10),
+        sameSite: 'strict'
     }
 }))
 
@@ -91,7 +95,7 @@ sequelize.sync({ force: false })
 
 
 initAuthMiddleware(app)
-
+app.use('/uploads', express.static('uploads'));
 app.use('/api/', indexRouter);
 
 app.listen(process.env.PORT, () => {

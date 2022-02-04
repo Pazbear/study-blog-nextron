@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Router from 'next/router'
@@ -15,6 +15,9 @@ import {
 import axios from 'axios'
 import { UserOutlined } from '@ant-design/icons';
 import '../custom-antd.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useUser } from '../hooks/useUser';
+import { login } from '../api/userApi';
 
 const { SubMenu } = Menu;
 const {
@@ -26,21 +29,22 @@ const { Item: FormItem } = Form;
 const { Option } = Select;
 
 function Home() {
+  const {loggedIn, mutate} = useUser();
 
-  const onSubmit = async (values: any) => {
-    try{
-    const response = await axios.post('/api/user/login', values)
-    if(response.data.success){
-      Router.push('/main')
-    }
-    }catch(error){
-      console.log(error.response)
-    }
+  useEffect(()=>{
+    if(loggedIn) Router.replace('/info')
+  }, [loggedIn])
+
+  if (loggedIn) return <>Delay..</>
+
+  const onSubmit = async (value: any) => {
+    await login(value);
+    mutate();
   }
   return (
     <React.Fragment>
       <Head>
-        <title>Home - Nextron (with-javascript-ant-design)</title>
+        <title>STU_DISTORY</title>
       </Head>
       <Layout style={{ height: '100vh' }}>
         <Layout style={{ padding: 24 }}>
@@ -53,12 +57,12 @@ function Home() {
                     name="userId"
                     labelCol={{ span: 24 }}
                     wrapperCol={{ span: 8 }}
-                    rules={[{required:true, message:'ID를 입력해주세요'},
-                    {min:8, max:20, message:'ID는 8자 이상 20자 이하입니다.'}]}
+                    rules={[{ required: true, message: 'ID를 입력해주세요' },
+                    { min: 8, max: 20, message: 'ID는 8자 이상 20자 이하입니다.' }]}
                   >
                     <Input id="userId" size='large' style={{ width: 200 }}
                       placeholder="ID" prefix={<UserOutlined />}
-                      />
+                    />
                   </FormItem>
 
                   <FormItem
@@ -66,11 +70,11 @@ function Home() {
                     name="password"
                     labelCol={{ span: 24 }}
                     wrapperCol={{ span: 8 }}
-                    rules={[{required:true, message:'ID를 입력해주세요'},
-                    {min:8, max:20, message:'Password는 8자 이상 20자 이하입니다.'}]}
+                    rules={[{ required: true, message: 'ID를 입력해주세요' },
+                    { min: 8, max: 20, message: 'Password는 8자 이상 20자 이하입니다.' }]}
                   >
                     <Input.Password id="password" size='large' style={{ width: 200 }}
-                      placeholder="Password"/>
+                      placeholder="Password" />
                   </FormItem>
 
                   <FormItem

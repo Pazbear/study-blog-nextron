@@ -35,4 +35,9 @@ module.exports = class User extends Sequelize.Model {
             collate : 'utf8mb4_general_ci'
         })
     }
+    static associate(db){
+        db.User.hasMany(db.Work, {sourceKey : 'id'});
+        db.User.hasMany(db.Buddy, {as:'from', foreignKey:'fromId'})
+        db.User.hasMany(db.Buddy, {as:'to', foreignKey:'toId'})
+    }
 }

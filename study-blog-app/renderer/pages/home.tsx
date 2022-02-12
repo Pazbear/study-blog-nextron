@@ -29,17 +29,17 @@ const { Item: FormItem } = Form;
 const { Option } = Select;
 
 function Home() {
-  const {loggedIn, mutate} = useUser();
+  const {useUserLoggedIn, useUserMutate} = useUser();
 
   useEffect(()=>{
-    if(loggedIn) Router.replace('/info')
-  }, [loggedIn])
+    if(useUserLoggedIn) Router.replace('/info')
+  }, [useUserLoggedIn])
 
-  if (loggedIn) return <>Delay..</>
+  if (useUserLoggedIn) return <>Delay..</>
 
   const onSubmit = async (value: any) => {
     await login(value);
-    mutate();
+    useUserMutate();
   }
   return (
     <React.Fragment>

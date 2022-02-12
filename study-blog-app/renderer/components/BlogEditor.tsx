@@ -25,6 +25,7 @@ const BlogEditor: React.FC<Props> = (props) => {
 
   const editorRef = React.useRef<EditorType>();
 
+  /*
   React.useEffect(()=>{
     if(editorRef.current){
       console.log("editorRef.current")
@@ -44,6 +45,7 @@ const BlogEditor: React.FC<Props> = (props) => {
     }
     return () => {};
   },[])
+  */
 
   const handleChange = React.useCallback(() => {
     if (!editorRef.current) {
@@ -59,11 +61,25 @@ const BlogEditor: React.FC<Props> = (props) => {
   return <div>
     <EditorWithForwardedRef
       {...props}
+      usageStatistics={false}
       initialValue={initialValue || "hello react editor world!"}
       previewStyle={previewStyle || "vertical"}
       height={height || "600px"}
       initialEditType={"wysiwyg"}
       useCommandShortcut={useCommandShortcut || true}
+      hooks={{
+        addImageBlobHook:(blob, callback)=>{
+          (async ()=>{
+            let formData = new FormData();
+            formData.append("file", blob);
+            console.log("upload image");
+            const imagePath = await uploadImage(formData);
+            console.log(imagePath)
+            callback("/"+imagePath, "alt text");
+          })();
+          return false
+        }
+      }}
       ref={editorRef}
       onChange={handleChange}
     />

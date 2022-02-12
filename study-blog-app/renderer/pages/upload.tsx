@@ -4,17 +4,19 @@ import BlogEditor from '../components/BlogEditor';
 import { Button, Form, Input } from 'antd';
 import axios from 'axios';
 import { useEffect, useRef } from 'react';
+import { uploadWork } from '../api/workApi';
+import Router from 'next/router';
 const { Item: FormItem } = Form;
 function UploadPage() {
 
   const onSubmit = async (values: any) => {
-    try {
-      const response = await axios.post('/api/work/upload', values)
-      if (response.data.success) {
-        console.log("업로드 성공")
-      }
-    } catch (error) {
-      console.log(error.response)
+    const response = await uploadWork(values)
+    if(response){
+      alert("업로드가 완료되었습니다.")
+      Router.replace('/info');
+    }else{
+      alert("업로드에 실패했습니다.")
+      Router.replace('/upload')
     }
   }
   return (

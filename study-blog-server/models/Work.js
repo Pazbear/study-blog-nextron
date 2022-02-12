@@ -6,7 +6,6 @@ module.exports = class Work extends Sequelize.Model {
             title: {
                 type : Sequelize.STRING(100),
                 allowNull:false,
-                unique:true,
             },
             content:{
                 type : Sequelize.TEXT('medium'),

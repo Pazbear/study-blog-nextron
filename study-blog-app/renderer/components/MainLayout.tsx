@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import {
@@ -7,6 +7,7 @@ import {
   Result,
 } from 'antd';
 import {logout} from '../api/userApi'
+import {useWork} from '../hooks/useWork'
 import Router from 'next/router';
 
 const { SubMenu } = Menu;
@@ -19,14 +20,16 @@ const {
 } = Layout;
 
 type Props = {
-  mutate?:any
+  useUserMutate?:any
 }
 
 const MainLayout: React.FunctionComponent<Props> = ({
-  mutate,
+  useUserMutate,
   children,
 }) => {
-  
+
+  const {useWorkLoading, useWorkFetched, useWorkData, useWorkMutate} = useWork();
+  console.log(useWorkData)
   return (
   <React.Fragment>
     <Head>
@@ -61,14 +64,15 @@ const MainLayout: React.FunctionComponent<Props> = ({
               <Menu.Item key="4">4</Menu.Item>
             </SubMenu>
             <SubMenu key="my_works" title="내 작업실">
-              <Menu.Item key="5">option5</Menu.Item>
-              <Menu.Item key="6">option6</Menu.Item>
-              <Menu.Item key="7">option7</Menu.Item>
-              <Menu.Item key="8">option8</Menu.Item>
+              {
+                useWorkData.works.rows.map((work)=>(
+                  <Menu.Item key={work.id}>{work.title}</Menu.Item>
+                ))
+              }
             </SubMenu>
             <Menu.Item key="logout" onClick={async () =>{
               await logout();
-              mutate();
+              useUserMutate();
             }}>
               로그아웃
             </Menu.Item>

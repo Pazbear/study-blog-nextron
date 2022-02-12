@@ -6,9 +6,7 @@ const workRoutes = require('../features/work/routes')
 
 router.get('/get-session', (req, res) => {
     if (req.user && req.isAuthenticated()) {
-        if (req.user.is_admin) {
-            return res.status(401).send({ success: false })
-        }
+        console.log(req.user)
         return res.status(200).send({ success: true, user: req.user });
     }
     return res.status(401).send({ success: false });

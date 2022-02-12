@@ -28,6 +28,7 @@ async function getUserForLoginData(userId, password) {
   }
 
   return {
+    id : user.id,
     userId: user.userId,
     nickname : user.nickname,
     avatar : user.avatar,
@@ -37,7 +38,7 @@ async function getUserForLoginData(userId, password) {
 
 async function getUser(userId) {
   const user = await User.findOne({
-    attributes:['userId', 'nickname', 'avatar', 'createdAt'],
+    attributes:['id','userId', 'nickname', 'avatar', 'createdAt'],
     where : {userId : userId}
   })
   return user;

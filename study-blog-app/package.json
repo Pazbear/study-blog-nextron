@@ -11,10 +11,7 @@
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@reduxjs/toolkit": "1.7.1",
-=======
->>>>>>> 0ac21f1c5a9e632b53f0f2564573c793ee01d63b
     "@toast-ui/editor": "3.1.2",
     "@toast-ui/react-editor": "^3.1.2",
     "@types/react-redux": "7.1.22",
@@ -27,15 +24,10 @@
     "next-redux-wrapper": "7.0.5",
     "react-redux": "7.2.6",
     "redux": "4.1.2",
-<<<<<<< HEAD
     "redux-logger": "3.0.6",
     "redux-thunk": "2.4.1",
     "styled-components": "5.3.3",
     "swr": "1.2.1",
-=======
-    "redux-thunk": "2.4.1",
-    "styled-components": "5.3.3",
->>>>>>> 0ac21f1c5a9e632b53f0f2564573c793ee01d63b
     "typesafe-actions": "5.1.0"
   },
   "devDependencies": {

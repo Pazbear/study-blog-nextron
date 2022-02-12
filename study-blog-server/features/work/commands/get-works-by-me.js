@@ -1,11 +1,18 @@
 const axios = require('axios');
 const registerRepo = require('../repository');
 
-async function getWorksByUser(req, res) {
+async function getWorksByMe(req, res) {
   let result = {};
   var id = null;
   try {
-    result = await registerRepo.getWorksByUser(req.body.userId);
+    id = req.user.id;
+    console.log(id)
+  } catch (error) {
+    return res.status(401).send({ success: false, auth:false, message: "세션 정보가 없습니다." })
+  }
+
+  try {
+    result = await registerRepo.getWorksByUser(id);
   } catch (error) {
     console.error(error)
     result=error
@@ -21,4 +28,4 @@ async function getWorksByUser(req, res) {
   
 }
 
-module.exports = getWorksByUser;
+module.exports = getWorksByMe;

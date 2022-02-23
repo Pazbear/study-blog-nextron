@@ -66,7 +66,7 @@ const MainLayout: React.FunctionComponent<Props> = ({
             <SubMenu key="my_works" title="내 작업실">
               {
                 useWorkData && useWorkData.works.rows.map((work)=>(
-                  <Menu.Item key={work.id}><Link href={`/works/${work.id}`}>{work.title}</Link></Menu.Item>
+                  <Menu.Item key={work.id}><Link href={`/work/[id]?id=${work.id}`} as={`/work/${work.id}`}>{work.title}</Link></Menu.Item>
                 ))
               }
             </SubMenu>

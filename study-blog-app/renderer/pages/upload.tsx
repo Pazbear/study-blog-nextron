@@ -6,21 +6,31 @@ import axios from 'axios';
 import { useEffect, useRef } from 'react';
 import { uploadWork } from '../api/workApi';
 import Router from 'next/router';
+import { useUser } from '../hooks/useUser';
 const { Item: FormItem } = Form;
 function UploadPage() {
+  const { useUserLoading, useUserLoggedIn, useUserData, useUserMutate } = useUser();
+
+
+  useEffect(() => {
+    if (!useUserLoggedIn) Router.replace('/home')
+  }, [useUserLoggedIn]);
+
+  if (useUserLoading) return <>Delay</>;
+
 
   const onSubmit = async (values: any) => {
     const response = await uploadWork(values)
-    if(response){
+    if (response) {
       alert("업로드가 완료되었습니다.")
       Router.replace('/info');
-    }else{
+    } else {
       alert("업로드에 실패했습니다.")
       Router.replace('/upload')
     }
   }
   return (
-    <MainLayout>
+    <MainLayout useUserMutate={useUserMutate}>
       <Form layout='vertical' onFinish={onSubmit}>
         <FormItem
           name="title"

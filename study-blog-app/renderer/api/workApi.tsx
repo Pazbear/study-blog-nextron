@@ -30,6 +30,18 @@ export const uploadWork = async (work : any) => {
     }
 }
 
+export const getWorkById = async (workId) => {
+    try{
+        const response = await axios.get(`/api/work/get/${workId}`)
+        if(response.data.success){
+            return response.data
+        }
+    }catch(error){
+        console.log(error.response)
+        return {success:false}
+    }
+}
+
 export const getWorksByMe = async () =>{
     try{
         const response = await axios.get('/api/work/get-works')

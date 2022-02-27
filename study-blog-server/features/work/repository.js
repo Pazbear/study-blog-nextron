@@ -1,10 +1,13 @@
 const bcrypt = require('bcrypt');
-const {Work} = require('../../models')
+const {Work, User} = require('../../models')
 
 async function getWorkById(workId)
 {
   const work = await Work.findOne({
-    where:{id:workId}
+    where:{id:workId},
+    include:[
+      {model:User, attributes:['id', 'nickname']}
+    ]
   })
   return {success:true, work : work}
 }

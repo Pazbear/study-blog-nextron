@@ -6,6 +6,7 @@ import { getWorkById } from '../../api/workApi'
 import MainLayout from '../../components/MainLayout'
 import { useUser } from '../../hooks/useUser'
 import React from 'react';
+import { PageHeader } from 'antd';
 
 const WorkPage = () => {
     const router = useRouter()
@@ -34,9 +35,14 @@ const WorkPage = () => {
       const instance = ViewerRef.current.getInstance()
       instance.setMarkdown(response.work.content)
     }
-    const test = ""
     return (
         <MainLayout useUserMutate={useUserMutate}>
+          <PageHeader 
+            style={{border:'1px solid rgb(235, 237,240)'}}
+            onBack={() => Router.replace('/home')}
+            title={Work && Work.title}
+            subTitle={Work && Work.User.nickname}
+          />
           <div style={{width:'70%', margin:'0 auto'}}>
             {Work ? <Viewer
               ref={ViewerRef}

@@ -45,7 +45,7 @@ const MainLayout: React.FunctionComponent<Props> = ({
             mode='inline'
             defaultSelectedKeys={[]}
             defaultOpenKeys={[]}
-            style={{ height: '100%', borderRight: 0 }}
+            style={{ height: '100%', borderRight: 0, fontSize:'20px' }}
           >
             <Menu.Item key="info">
               <Link href="/info">

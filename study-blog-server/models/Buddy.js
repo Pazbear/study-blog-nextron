@@ -6,6 +6,7 @@ module.exports = class Buddy extends Sequelize.Model {
             isAccepted: {
                 type : Sequelize.BOOLEAN,
                 allowNull:false,
+                defaultValue:false,
                 unique:false,
             },
         },{

@@ -47,6 +47,8 @@ async function getUser(userId) {
 async function getUserByUserId(userId) {
   return getUser( userId );
 }
+
+
 /*
 async function saveLoginHistory(requestIp, id){
   await LoginHistory.create({

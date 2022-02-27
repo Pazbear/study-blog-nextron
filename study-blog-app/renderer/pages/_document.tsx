@@ -11,8 +11,8 @@ export default class MyDocument extends Document {
         <Head>
           <meta charSet='utf-8' />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
-          <link href="https://fonts.googleapis.com/css2?family=Dongle&display=swap" rel="stylesheet" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+          <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet"/>
         </Head>
         <body>
           <Main />

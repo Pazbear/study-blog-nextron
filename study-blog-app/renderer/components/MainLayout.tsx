@@ -8,6 +8,7 @@ import {
 } from 'antd';
 import {logout} from '../api/userApi'
 import {useWork} from '../hooks/useWork'
+import {useBuddy} from '../hooks/useBuddy'
 import Router from 'next/router';
 
 const { SubMenu } = Menu;
@@ -29,6 +30,7 @@ const MainLayout: React.FunctionComponent<Props> = ({
 }) => {
 
   const {useWorkLoading, useWorkFetched, useWorkData, useWorkMutate} = useWork();
+  const {useBuddyLoading, useBuddyFetched, useBuddyData, useBuddyMutate} = useBuddy();
   console.log(useWorkData)
   return (
   <React.Fragment>

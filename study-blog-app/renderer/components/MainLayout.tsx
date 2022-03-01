@@ -31,6 +31,7 @@ const MainLayout: React.FunctionComponent<Props> = ({
 
   const {useWorkLoading, useWorkFetched, useWorkData, useWorkMutate} = useWork();
   const {useBuddyLoading, useBuddyFetched, useBuddyData, useBuddyMutate} = useBuddy();
+
   console.log(useWorkData)
   return (
   <React.Fragment>

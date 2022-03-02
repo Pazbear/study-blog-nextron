@@ -32,7 +32,7 @@ const MainLayout: React.FunctionComponent<Props> = ({
   const {useWorkLoading, useWorkFetched, useWorkData, useWorkMutate} = useWork();
   const {useBuddyLoading, useBuddyFetched, useBuddyData, useBuddyMutate} = useBuddy();
 
-  console.log(useWorkData)
+  console.log(useBuddyData)
   return (
   <React.Fragment>
     <Head>
@@ -61,15 +61,18 @@ const MainLayout: React.FunctionComponent<Props> = ({
               </Link>
             </Menu.Item>
             <SubMenu key="my_friends" title="내 친구">
-              <Menu.Item key="1">1</Menu.Item>
-              <Menu.Item key="2">2</Menu.Item>
-              <Menu.Item key="3">3</Menu.Item>
-              <Menu.Item key="4">4</Menu.Item>
+              {
+                useBuddyData && useBuddyData.buddies.map((buddy)=>(
+                  <Menu.Item key={`buddy${buddy.buddy.id}`}>
+                    {buddy.buddy.nickname}
+                  </Menu.Item>
+                ))
+              }
             </SubMenu>
             <SubMenu key="my_works" title="내 작업실">
               {
                 useWorkData && useWorkData.works.rows.map((work)=>(
-                  <Menu.Item key={work.id}><Link href={`/work/[id]?id=${work.id}`} as={`/work/${work.id}`}>{work.title}</Link></Menu.Item>
+                  <Menu.Item key={`work${work.id}`}><Link href={`/work/[id]?id=${work.id}`} as={`/work/${work.id}`}>{work.title}</Link></Menu.Item>
                 ))
               }
             </SubMenu>

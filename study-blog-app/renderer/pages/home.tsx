@@ -15,7 +15,6 @@ import {
 import axios from 'axios'
 import { UserOutlined } from '@ant-design/icons';
 import '../custom-antd.css';
-import { useDispatch, useSelector } from 'react-redux';
 import { useUser } from '../hooks/useUser';
 import { login } from '../api/userApi';
 
@@ -30,6 +29,7 @@ const { Option } = Select;
 
 function Home() {
   const {useUserLoggedIn, useUserMutate} = useUser();
+  
 
   useEffect(()=>{
     if(useUserLoggedIn) Router.replace('/info')

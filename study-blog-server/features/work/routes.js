@@ -1,12 +1,13 @@
 const { wrap } = require('async-middleware');
-const router = require('express').Router();
-
-const {validateUploadPayload, validateGetWorksPayload} = require('./commands/verify-request-body');
 const getWorksByMe = require('./commands/get-works-by-me')
 const getWorksByUser = require('./commands/get-works-by-user')
 const getWorkById = require('./commands/get-work-by-id')
-const uploadImage = require('./commands/upload-image');
-const uploadWork = require('./commands/upload-work');
+const uploadImage = require('./commands/upload-image')
+const uploadWork = require('./commands/upload-work')
+const router = require('express').Router();
+
+const {validateUploadPayload, validateGetWorksPayload} = require('./commands/verify-request-body');
+
 
 /*const LoginHistory = require('./commands/save-login-history');*/
 router.get('/get-works', wrap(getWorksByMe));

@@ -3,6 +3,7 @@ const router = express.Router();
 
 const userRoutes = require('../features/user/routes')
 const workRoutes = require('../features/work/routes')
+const buddyRoutes = require('../features/buddy/routes')
 
 router.get('/get-session', (req, res) => {
     if (req.user && req.isAuthenticated()) {
@@ -13,5 +14,6 @@ router.get('/get-session', (req, res) => {
 
 router.use('/user', userRoutes);
 router.use('/work', workRoutes);
+router.use('/buddy', buddyRoutes);
 
 module.exports = router;

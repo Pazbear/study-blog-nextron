@@ -68,6 +68,11 @@ const MainLayout: React.FunctionComponent<Props> = ({
                   </Menu.Item>
                 ))
               }
+              <Menu.Item key="search_buddy" style={{background:'rgba(180,180,255, 0.5)'}}>
+                <Link href="/buddy/search">
+                  검색
+                </Link>
+              </Menu.Item>
             </SubMenu>
             <SubMenu key="my_works" title="내 작업실">
               {
